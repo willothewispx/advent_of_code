@@ -10,14 +10,25 @@ import (
 
 func main() {
 	array := ReadInts("input.txt")
-	num1, num2 := FindNumbers(array)
+	num1, num2 := FindTwoNumbers(array)
 
 	if num1 == -1 {
 		log.Fatal("Could not find two numbers that add to 2020")
 	}
 
+	fmt.Println("---Part One---")
 	fmt.Printf("The two numbers that add to 2020 are %d and %d.\n", num1, num2)
-	fmt.Printf("Their product is: %d", num1*num2)
+	fmt.Printf("Their product is: %d\n", num1*num2)
+
+	num1, num2, num3 := FindThreeNumbers(array)
+
+	if num1 == -1 {
+		log.Fatal("Could not find three numbers that add to 2020")
+	}
+
+	fmt.Println("---Part Two---")
+	fmt.Printf("The three numbers that add to 2020 are %d, %d, and %d.\n", num1, num2, num3)
+	fmt.Printf("Their product is: %d\n", num1*num2*num3)
 }
 
 func ReadInts(filePath string) *[]int {
@@ -51,7 +62,7 @@ func ReadInts(filePath string) *[]int {
 	return &result
 }
 
-func FindNumbers(result *[]int) (int, int) {
+func FindTwoNumbers(result *[]int) (int, int) {
 	array := ReadInts("input.txt")
 
 	for i := 0; i < len(*array); i++ {
@@ -62,4 +73,19 @@ func FindNumbers(result *[]int) (int, int) {
 		}
 	}
 	return -1, -1
+}
+
+func FindThreeNumbers(result *[]int) (int, int, int) {
+	array := ReadInts("input.txt")
+
+	for i := 0; i < len(*array); i++ {
+		for j := i + 1; j < len(*array); j++ {
+			for k := j + 1; k < len(*array); k++ {
+				if (*array)[i]+(*array)[j]+(*array)[k] == 2020 {
+					return (*array)[i], (*array)[j], (*array)[k]
+				}
+			}
+		}
+	}
+	return -1, -1, -1
 }
