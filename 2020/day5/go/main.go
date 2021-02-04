@@ -16,15 +16,17 @@ func main() {
 		return (*bp)[i].SeatID < (*bp)[j].SeatID
 	})
 
-	fmt.Printf("The lost seat id is %d.\n", (*bp)[len(*bp)-1].SeatID)
+	fmt.Printf("The highest seat id is %d.\n", (*bp)[len(*bp)-1].SeatID)
 
-	var ids []int64
+	start := (*bp)[0].SeatID
 
-	for _, p := range *bp {
-		ids = append(ids, p.SeatID)
+	for i, p := range *bp {
+		if p.SeatID-start != int64(i) {
+			fmt.Printf("The lost seat id is %d.\n", p.SeatID-1)
+			break
+		}
 	}
 
-	fmt.Println(ids)
 }
 
 type BoardingPass struct {
